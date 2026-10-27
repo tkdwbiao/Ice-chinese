@@ -22,6 +22,9 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             build
 
+      - name: Ad-hoc sign
+        run: codesign --force --sign - "DerivedData/Build/Products/Release/Ice.app"
+
       - name: Package app
         run: |
           ditto -c -k --sequesterRsrc --keepParent \
