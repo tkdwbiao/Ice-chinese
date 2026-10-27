@@ -66,7 +66,13 @@ final class ControlItem {
         guard let window else {
             return nil
         }
-        return CGWindowID(window.windowNumber)
+        // The status item's window number can be negative while its window is
+        // being set up, which would trap when converting to `CGWindowID`.
+        let number = window.windowNumber
+        guard number > 0 else {
+            return nil
+        }
+        return CGWindowID(number)
     }
 
     /// A Boolean value that indicates whether the control item serves as
